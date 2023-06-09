@@ -1,15 +1,16 @@
-package Exercise5;
+package Exercise7;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream; 
+import java.io.BufferedReader; 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class DailyRainfallDataReader {
-
+public class RainfallCharDataReader {
+	
 	public static void main(String [] args) {
 
-		//declare file name
-		String dataFileName = "dailyRainfallSimpangAmpat.txt";
+		//declare filename
+		String dataFileName = "dailyRainfallCharBased.txt";
 		System.out.println("Reading rainfall data from " + dataFileName + "\n\n");
 		
 		//initialize variable
@@ -20,15 +21,16 @@ public class DailyRainfallDataReader {
 		try {
 			
 			//initialize input stream
-			DataInputStream disRainfall = new DataInputStream(new FileInputStream(dataFileName));
+			BufferedReader bfRainfall = new BufferedReader(new InputStreamReader(new FileInputStream(dataFileName)));
 			
 			//read and load data
-			String areaName = disRainfall.readUTF();
+			String areaName = bfRainfall.readLine();
+			String line = "";
 			
-			while(disRainfall.available() > 0) {
-				
-				tmpDateString = disRainfall.readUTF();
-				tmpRainFall = disRainfall.readInt();
+			while((line = bfRainfall.readLine()) != null) {
+				String [] splittedStrings = line.split(" ");
+				tmpRainFall = Integer.parseInt(splittedStrings[1]);
+				tmpDateString = splittedStrings[0]; 
 				total += tmpRainFall;
 				count ++;
 				
@@ -36,7 +38,7 @@ public class DailyRainfallDataReader {
 			}
 			
 			//close stream
-			disRainfall.close();
+			bfRainfall.close();
 			
 			//calculate and display avrage
 			System.out.println("Total Rainfall\t: " + total);

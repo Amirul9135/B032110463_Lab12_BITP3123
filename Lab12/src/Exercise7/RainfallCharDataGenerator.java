@@ -1,16 +1,15 @@
-package Exercise5;
+package Exercise7;
+ 
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
-import java.io.DataOutputStream;  
-import java.io.FileOutputStream; 
-
-public class DailyRainfallDataGenerator {
-
-
-
+public class RainfallCharDataGenerator {
+	
+	
 	public static void main(String [] args) {
 
 		//declare filename
-		String dataFileName = "dailyRainfallSimpangAmpat.txt";
+		String dataFileName = "dailyRainfallCharBased.txt";
 
 		//load data into variable
 		int dailyRainfall[] = {5,0,0,4,1,0};
@@ -20,20 +19,20 @@ public class DailyRainfallDataGenerator {
 		try {
 			
 			//initialize stream
-			DataOutputStream dosRainfall = new DataOutputStream(new FileOutputStream(dataFileName));
+			PrintWriter pwRainfall = new PrintWriter(new FileOutputStream(dataFileName));
 			
 			
-			//write all data
-			dosRainfall.writeUTF("Simpang Ampat, Alor Gajah Melaka");
+			//print all data
+			pwRainfall.println("Simpang Ampat, Alor Gajah Melaka");
 			for(int index=0;index < dailyRainfall.length; index++) {
-				dosRainfall.writeUTF(rainfallDate[index]);
-				dosRainfall.writeInt(dailyRainfall[index]);; 
+				pwRainfall.print(rainfallDate[index] + " ");
+				pwRainfall.println(dailyRainfall[index]);; 
 			}
 
 			System.out.println("Rainfall data saved into " + dataFileName);
 			
 			//close stream
-			dosRainfall.close();
+			pwRainfall.close();
 			
 
 		} catch (Exception e) {
